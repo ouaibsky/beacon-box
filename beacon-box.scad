@@ -65,50 +65,55 @@ module roundedcube(size = [1, 1, 1], center = false, radius = 0.5, apply_to = "a
 lo = 29.8;
 la = 26.1;
 ha = 12.3;
-ep = 1.0;
+ep = 1.2;
+ep2 = 0.8;
+ep3 = 0.6;
 k = 3;
 rounded = "x"; //"all" or "x"
 
 // Box
 union() {
-difference() {
-// Entire Box    
-roundedcube([lo+2*ep, la+2*ep, ha+2*ep], false, ep, rounded);
-// Remove main Inside box
-translate([3*ep,ep,ep]) cube([lo+2*ep, la, ha]);
-// Remove right part
-translate([lo+ep,la+ep,ep]) cube([ep, ep, ha]);
-// Remove inside for the top part
-translate([lo+ep,ep/2,ep/2]) cube([ep/2, la+2*ep, ha+ep]);
-};
-// Key ring part
-difference() {
-    // Main key ring part
-    translate([lo+ep,0,ha/2+ep-k/2-ep]) roundedcube([k+2*ep, ep, k+2*ep],false, ep/2, "all");
-    // Remove for key ring
-    translate([lo+2*ep,0,ha/2+ep-k/2]) roundedcube([k, ep, k], false, ep);
-
+    difference() {
+        // Entire Box    
+        roundedcube([lo+2*ep, la+2*ep, ha+2*ep], false, ep, rounded);
+        // Remove main Inside box
+        translate([ep,ep,ep]) cube([lo+2*ep, la, ha]);
+        // Remove right part
+        translate([lo+ep,la+ep,ep]) cube([ep, ep, ha]);
         // Remove inside for the top part
-translate([lo+ep,ep/2,ep/2]) cube([ep/2, la+2*ep, ha+ep]);
-
-};
-
-difference() {
-translate([lo+ep,0,ha/2+ep-k/2-ep]) roundedcube([ep, ep, k+2*ep],false, ep/2, "x");
+        translate([lo+ep,ep,ep-ep2]) cube([ep2, la+2*ep2, ha+2*ep2]);
+    };
+    // Key ring part
+    difference() {
+        // Main key ring part
+        translate([lo+ep,0,ha/2+ep-k/2-ep]) roundedcube([k+1.8*ep, ep, k+2*ep],false, ep/2, "x");
+        // Remove for key ring
+        translate([lo+2*ep,0,ha/2+ep-k/2]) cube([k, ep, k], false, ep);
         // Remove inside for the top part
-translate([lo+ep,ep/2,ep/2]) cube([ep/2, la+2*ep, ha+ep]);
-};
+        translate([lo+ep,ep/2,ep/2]) cube([ep/2, la+2*ep, ha+ep]);
+    };
+    
+    //difference() {
+        //translate([lo+ep,0,ha/2+ep-k/2-ep]) roundedcube([ep, ep, k+2*ep],false, ep/2, "x");
+        // Remove inside for the top part
+        //translate([lo+ep,ep/2,ep/2]) cube([ep/2, la+2*ep, ha+ep]);
+    //};
 }
 
 // Top
-
 union() {
-// Top
-//translate([lo,2*la+la,0]) roundedcube([2*ep, ep, ha+2*ep], false, ep, "ymin");
-translate([lo,2*la,0]) cube([ep/2, la+ep, ha+ep]);
-translate([lo+ep/2,2*la+ep/2,ep/2]) cube([ep/2, la+ep/2, ha]);
-    
+    // Top
+    translate([lo+ep,2*la,0]) cube([ep2, la+ep, ha+2*ep2]);
+    translate([lo+ep+ep2,2*la,ep2]) cube([ep-ep2, la+ep, ha]);
 };
+
+// Top 2
+union() {
+    // Top
+    translate([lo+ep,4*la,0]) cube([ep3, la+ep, ha+2*ep2]);
+    translate([lo+ep+ep3,4*la,ep2]) cube([ep-ep3, la+ep, ha]);
+};
+
 
 
 
