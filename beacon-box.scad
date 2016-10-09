@@ -92,12 +92,7 @@ union() {
         // Remove inside for the top part
         translate([lo+ep,ep/2,ep/2]) cube([ep/2, la+2*ep, ha+ep]);
     };
-    
-    //difference() {
-        //translate([lo+ep,0,ha/2+ep-k/2-ep]) roundedcube([ep, ep, k+2*ep],false, ep/2, "x");
-        // Remove inside for the top part
-        //translate([lo+ep,ep/2,ep/2]) cube([ep/2, la+2*ep, ha+ep]);
-    //};
+   
 }
 
 // Top
