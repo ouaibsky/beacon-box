@@ -71,6 +71,7 @@ ep3 = 0.6;
 k = 3;
 rounded = "x"; //"all" or "x"
 
+rotate([0,-90,0]) {
 // Box
 union() {
     difference() {
@@ -88,9 +89,9 @@ union() {
         // Main key ring part
         translate([lo+ep,0,ha/2+ep-k/2-ep]) roundedcube([k+1.8*ep, ep, k+2*ep],false, ep/2, "x");
         // Remove for key ring
-        translate([lo+2*ep,0,ha/2+ep-k/2]) cube([k, ep, k], false, ep);
+        %translate([lo+2*ep,0,ha/2+ep-k/2]) cube([k, ep, k], false, ep);
         // Remove inside for the top part
-        translate([lo+ep,ep/2,ep/2]) cube([ep/2, la+2*ep, ha+ep]);
+        #translate([lo+ep,ep/2,ep/2]) cube([ep/2, la+2*ep, ha+ep]);
     };
    
 }
@@ -98,16 +99,17 @@ union() {
 // Top
 union() {
     // Top
-    translate([lo+ep,2*la,0]) cube([ep2, la+ep, ha+2*ep2]);
-    translate([lo+ep+ep2,2*la,ep2]) cube([ep-ep2, la+ep, ha]);
+    translate([0,2*la,0]) cube([ep2, la+ep, ha+2*ep2]);
+    translate([ep2,2*la,ep2]) cube([ep-ep2, la+ep, ha]);
 };
 
 // Top 2
 union() {
     // Top
-    translate([lo+ep,4*la,0]) cube([ep3, la+ep, ha+2*ep2]);
-    translate([lo+ep+ep3,4*la,ep2]) cube([ep-ep3, la+ep, ha]);
+    translate([0,4*la,0]) cube([ep3, la+ep, ha+2*ep2]);
+    translate([ep3,4*la,ep2]) cube([ep-ep3, la+ep, ha]);
 };
+}
 
 
 
